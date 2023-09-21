@@ -4,13 +4,14 @@
     <!-- Crea un archivo web que cree una variable 
     con un número y lo muestre en una alerta. 
     Haced lo mismo, pero en este caso con una constante matemátic -->
-        <script>
+        <script charset="UTF-8">
             function mostarNumeros(){
-                var variable = 23;
-                var constante = 3.14;
+                var variable = prompt("Introduzca un valor para esta variable\nluego le hablare la velocidad de la luz");
+                var constante = 299.792;
 
-                alert(variable);
-                alert(constante);
+                alert("El valor de la variable ahora es de "+variable);
+                alert("La velocidad de la luz en el vacio es de "+constante+"m/s\n"
+                .concat("Independientemente de la velocidad del observador"));
             }
         </script>
 
