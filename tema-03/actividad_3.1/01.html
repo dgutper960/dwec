@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html>
-    <!--Crea una web que solicite dos números 
-        y diga cuál es el mayor de ellos-->
     <head>
-        <script charset="TUF-8">
-            function numMayor(){
-                var num1 = Number(prompt("Ingrese el numero 1"));
-                var num2 = Number(prompt("Ingrese el numero 2"));
-                var resultado;
-                // REVISAR --> Sale el mayor
-                if((num1 || num2) == (null || "")){
-                    alert("Uno de los numeros introducidos es nullo");
-                } else if (num1 > num2){
-                    resultado = num1;
-                } else if (num1 < num2){
-                    resultado = num2;
-                } else {
-                    alert("Los numeros son iguales");
+        <!--Crea una web que solicite dos números 
+            y diga cuál es el mayor de ello-->
+            <script charset="UTF-8">
+                function numMayor(){
+                    var num1 = Number(prompt("Ingrese el numero 1"));
+                    var num2 = Number(prompt("Ingrese el numero 2"));
+                    var respuesta;
+
+                    if((num1 == null || num2 == null)||(num1 == "" || num2 == "")){
+                        respuesta = "Uno de los numeros es nulo"
+                    }else if (num1 == num2){
+                        respuesta = "Los numeros son iguales";
+                    } else if(num1 > num2){
+                        respuesta = "El mayor es el "+num1;
+                    } else{
+                        respuesta = "El mayor es el "+num2;
+                    }
+                    alert(respuesta);
                 }
-                // SALE SIEMPRE EL MAYOR (CORREGIR)
-                alert ("El mayor es el numero "+resultado);
-            }
-        </script>
+            </script>
     </head>
     <body onload="numMayor();">
-
+        
     </body>
-</html>
+</html> 
