@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head meta charset="UTF-8">
+<!-- Crea una web que calcule la descomposición en factores primos de un número solicitado al inicio. 
+    Es decir: de 18 responderá (2 * 3 * 3 ). -->
+    <script charset="UTF-8">
+        function descFactores() {
+        var num = Number(prompt("Introduzca un número"));
+
+        var alerta = "La descomposición en factores de " + num + " es: ";
+            // iniciamos en 2 por ser el factor más pequeño posible
+        for (var i = 2; i <= num; i++) {
+            // cuando llega al índice que resto sea 0, concatenamos
+            while (num % i == 0) {
+            alerta += i + " * ";
+            num /= i;
+            }
+        }
+        // factorial de 0 es 1
+        if (num > 1) {
+            alerta += num;
+        }
+
+        alert(alerta);
+        }
+
+
+    </script>
+
+    </head>
+    <body onload="descFactores()">
+        
+    </body>
+</html>
