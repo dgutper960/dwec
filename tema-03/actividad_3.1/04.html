@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html meta charset="UTF-8">
+    <head>
+<!--En una gestoría te solicitan que crees una web 
+    para calcular las primas de las nóminas, 
+    estas funcionan según las siguientes reglas: 
+
+Si el empleado/a tiene un sueldo inferior a 750 € 
+y su antigüedad es mayor o igual a 10 años, 
+obtendrá una prima del 10% de su sueldo. 
+
+Si el empleado/a tiene sueldo superior o igual a 750 € 
+y su antigüedad es mayor o igual a 10 años, 
+obtendrá una prima del 5% de su sueldo.
+
+Si su antigüedad es menor a 10 años, no obtendrá ninguna prima. 
+
+Tras realizar la prima mensual, 
+se deberá mostrar un mensaje con el valor final (sueldo + prima). 
+Para adquirir sueldo y antigüedad, pregúntalo al usuario/a
+-->
+<script charset="UTF-8">
+    function calcPrimas(){
+        var sueldo = Number(prompt("Inroduzca su sueldo"));
+        var antiguedad = Number(prompt("Inroduzca su antigüedad, en años"));
+        var sueldoMin = Number(750);
+        var antMin = Number(10);
+        var sueldoPrima;
+
+        if((sueldo < sueldoMin) && (antiguedad >= antMin)){
+            sueldoPrima = sueldo + (sueldo * 0.10); 
+        }else if((sueldo >= sueldoMin) && (antiguedad >= antMin)){
+            sueldoPrima = sueldo + (sueldo * 0.05);
+        }else if(antiguedad < antMin){
+            sueldoPrima = sueldo;
+        }else{
+            alert("Esta posibilidad no se ha contemplado");
+            // preguntar por break en este punto
+        }
+        alert("El total a de sueldo + prima que le corresponde asciende a "+sueldoPrima+"€");
+    }
+</script>
+    </head>
+    <body onload="calcPrimas()">
+        
+    </body>
+</html>

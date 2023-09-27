@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head meta charset="UTF-8">
+    <!-- Crea una web que solicite tres números y los muestre de menor a mayor -->
+    <script charset="UTF-8">
+        function numerosDalton(){
+            var a = Number(prompt("Ingrese el 1er número"));
+            var b = Number(prompt("Ingrese el 2º número"));
+            var c = Number(prompt("Ingrese el 3er númnero"));
+
+            var mayor ;
+            var med;
+            var menor;
+            
+            if(a > b && a > c){
+                mayor = a;
+                med = b > c? b : c;
+                menor = c < b? c : b; 
+            }else if(b > a && b > c){
+                mayor = b;
+                med = a > c? a : c;
+                menor = c < a? c : a; 
+            } else if(c > a && c > b){
+                mayor = c;
+                med = a > b? a : b;
+                menor = b < a? b : a;
+            }
+            alert("El orden de menor a mayor es "+
+            menor+" "+med+" "+mayor);
+
+        }
+    </script>
+    </head>
+    <body onload="numerosDalton();">
+        
+    </body>
+</html>

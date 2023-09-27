@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head meta charset="UTF-8">
+    <!-- Crea una web que solicite tres números y los muestre de menor a mayor -->
+    <script charset="UTF-8">
+        function numerosDalton(){
+            let numeros = [Number(prompt("Ingrese el número 1")), 
+            Number(prompt("Ingrese el número 2")), Number(prompt("Ingrese el número 3"))];
+
+            var alerta = String("Los números en orden ascendente son: ");
+            
+            // Se debe implementar el orden antes de usar el sort()
+            numeros.sort(function(a, b) {
+            return a - b; // Orden ascendente
+        });
+
+        for (var i = 0; i < numeros.length; i++) {
+            alerta += i < numeros.length -1? numeros[i]+", " : numeros[i];
+        }
+        alert(alerta);
+        }
+    </script>
+    </head>
+    <body onload="numerosDalton();">
+        
+    </body>
+</html>
