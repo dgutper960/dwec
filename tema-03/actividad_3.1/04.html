@@ -23,10 +23,11 @@ Para adquirir sueldo y antigüedad, pregúntalo al usuario/a
     function calcPrimas(){
         var sueldo = Number(prompt("Inroduzca su sueldo"));
         var antiguedad = Number(prompt("Inroduzca su antigüedad, en años"));
+        // declaramos estas variables para facilitar la edición de los 
         var sueldoMin = Number(750);
         var antMin = Number(10);
         var sueldoPrima;
-
+        // hacemos las comparaciones
         if((sueldo < sueldoMin) && (antiguedad >= antMin)){
             sueldoPrima = sueldo + (sueldo * 0.10); 
         }else if((sueldo >= sueldoMin) && (antiguedad >= antMin)){

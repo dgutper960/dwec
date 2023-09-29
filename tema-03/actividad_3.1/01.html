@@ -8,11 +8,13 @@
                     var num1 = Number(prompt("Ingrese el numero 1"));
                     var num2 = Number(prompt("Ingrese el numero 2"));
                     var respuesta;
-
+                    // eliminamos la posibilidad de que sea nulo o cadena vacía
                     if((num1 == null || num2 == null)||(num1 == "" || num2 == "")){
                         respuesta = "Uno de los numeros es nulo"
+                        // opcion si son iguales
                     }else if (num1 == num2){
                         respuesta = "Los numeros son iguales";
+                        // comparamos los números
                     } else if(num1 > num2){
                         respuesta = "El mayor es el "+num1;
                     } else{
