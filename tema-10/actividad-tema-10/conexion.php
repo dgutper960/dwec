@@ -84,10 +84,5 @@ class Conexion
 
 }
 
-$conexion = new Conexion();
-$conexion->getPersonas();
-echo '<br>';
-$conexion->getIndividuo(2);
-
 
 ?>
