@@ -38,51 +38,58 @@ class Conexion
 
     }
 
-    /** Creamos un método para cerrar la  conexión */
-    public function cerrar_conexion()
-    {
-        $this->pdo = null;
-    }
+    // /** Creamos un método para cerrar la  conexión */
+    // public function cerrar_conexion()
+    // {
+    //     $this->pdo = null;
+    // }
 
     /**
      * Creamos los métodos directamente
      */
     // Mostrar todas las personas
-    public function getPersonas()
-    {
-        // realizamos la consulta sql
-        $sql = "SELECT id, nombre FROM tema10.datos";
-
-        $stmt = $this->pdo->prepare($sql);
-
-        $stmt->execute();
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        echo json_encode($result);
-
-    }
-
-    public function getIndividuo(int $id)
+    public function getDatos($valor)
     {
 
-        $sql = "SELECT * FROM tema10.datos WHERE id = :id";
+        if ($valor === 'id') {
 
-        $stmt = $this->pdo->prepare($sql);
 
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $sql = "SELECT * FROM tema10.datos WHERE id = :id";
 
-        $stmt->execute();
+            $stmt = $this->pdo->prepare($sql);
 
-        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
-        echo json_encode($result);
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+            echo json_encode($result);
+
+        } else {
+
+            // realizamos la consulta sql
+            $sql = "SELECT nombre FROM tema10.datos";
+
+            $stmt = $this->pdo->prepare($sql);
+
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            echo json_encode($result);
+
+        }
 
 
     }
-
 
 }
+
+$valor = $_GET['valor'];
+
+$respuesta = new Conexion();
+
 
 
 ?>
