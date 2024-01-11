@@ -69,7 +69,7 @@ class Conexion
         } else {
 
             // realizamos la consulta sql
-            $sql = "SELECT nombre FROM tema10.datos";
+            $sql = "SELECT id, nombre FROM tema10.datos";
 
             $stmt = $this->pdo->prepare($sql);
 
