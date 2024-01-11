@@ -6,6 +6,6 @@ function funAjax() {
         document.getElementById("datos").innerHTML = `Desde servidor ${obj.nombre} de ${obj.ciudad}` ;
         }
     }
-    xhttp.open("GET", "conexion.php?nombre=Juan&ciudad=Ubrique", true);
+    xhttp.open("GET", "conexion.php?"+valor, true);
     xhttp.send();
 } 
