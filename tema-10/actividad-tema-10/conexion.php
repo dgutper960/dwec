@@ -89,7 +89,7 @@ class Conexion
 $valor = $_GET['valor'];
 
 $respuesta = new Conexion();
-
+$respuesta->getDatos($valor);
 
 
 ?>
