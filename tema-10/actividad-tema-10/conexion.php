@@ -10,6 +10,8 @@ class Conexion
     # unico atributo -> visibilidad protegida
     protected $pdo;
 
+    public $id;
+
     # Constructor
     public function __construct()
     {
@@ -28,6 +30,8 @@ class Conexion
             ];
 
             $this->pdo = new PDO($dsn, 'root', null, $options);
+            $this->id = $_GET['id'];
+
 
         } catch (PDOException $e) {
             echo 'FALLO DE CONEXIÓN';
@@ -38,58 +42,57 @@ class Conexion
 
     }
 
-    // /** Creamos un método para cerrar la  conexión */
-    // public function cerrar_conexion()
-    // {
-    //     $this->pdo = null;
-    // }
+
 
     /**
      * Creamos los métodos directamente
      */
     // Mostrar todas las personas
-    public function getDatos($valor)
+    public function getPersonas()
+    {
+        // realizamos la consulta sql
+        $sql = "SELECT id, nombre FROM tema10.datos";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($result);
+
+    }
+
+    public function getIndividuo(int $id)
     {
 
-        if ($valor === 'id') {
+        $sql = "SELECT * FROM tema10.datos WHERE id = :id";
 
+        $stmt = $this->pdo->prepare($sql);
 
-            $sql = "SELECT * FROM tema10.datos WHERE id = :id";
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
-            $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
 
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-            echo json_encode($result);
-
-        } else {
-
-            // realizamos la consulta sql
-            $sql = "SELECT id, nombre FROM tema10.datos";
-
-            $stmt = $this->pdo->prepare($sql);
-
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            echo json_encode($result);
-
-        }
+        echo json_encode($result);
 
 
     }
 
+
 }
 
-$valor = $_GET['valor'];
 
-$respuesta = new Conexion();
-$respuesta->getDatos($valor);
+
+$conexion = new Conexion();
+
+if($conexion->id == ''){
+    $conexion->getPersonas();
+}else{
+    $conexion->getIndividuo($conexion->id);
+}
 
 
 ?>
