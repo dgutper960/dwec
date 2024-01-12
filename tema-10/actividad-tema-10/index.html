@@ -1,9 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
-    <meta charset="UTF-8">
-<body>
+  <meta charset="UTF-8" />
+  <body>
+    <!-- Titulo estático -->
+    <h3>Actividad - 10.1</h3>
 
+    <!-- Seleccion de persona -->
+    <select name="nombre" id="nombre"></select>
 
+    <div id="div">
+      <!-- Tabla -->
+      <table></table>
+    </div>
+  </body>
+  <script>
+    function funAjax(url, fun) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          fun(this);
+        }
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();
+    }
 
-</body>
+    function fun1(xhttp) {
+      let obj = JSON.parse(xhttp.responseText);
+      document.getElementById(
+        "datos"
+      ).innerHTML = `Desde servidor ${obj.nombre} de ${obj.ciudad}`;
+    }
+
+    function fun2(xhttp) {
+      let obj = JSON.parse(xhttp.responseText);
+      document.getElementById(
+        "datos"
+      ).innerHTML = `Desde servidor ${obj.nombre} de ${obj.ciudad}`;
+    }
+  </script>
 </html>
