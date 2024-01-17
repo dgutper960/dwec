@@ -1,50 +1,105 @@
 <!DOCTYPE html>
 <html lang="es">
   <meta charset="UTF-8" />
-  <body onload="funAjax('conexion.php', fun1)">
+  <body>
     <!-- Titulo estático -->
     <h3>Actividad - 10.1</h3>
 
     <!-- Seleccion de persona -->
-    <select name="nombre" id="nombre">Selecciona un nombre</select>
+    <select name="nombre" id="nombre">
+      <option value="algo">Seleccione un nombre</option>
+    </select>
 
     <div id="div">
       <!-- La tabla se imprime en este div -->
+        <!-- <table>
+          <tr><th>Aqui se mostraran los datos</th></tr>
+        </table> -->
+        <h3 id="h3">Aquí se mostrarán los Datos</h3>
+
+      <table id="tabla" hidden>
+        <tr>
+          <th>id</th>
+          <td id="id"></td>
+        </tr>
+        <tr>
+          <th>Nombre</th>
+          <td id="nom"></td>
+        </tr>
+        <tr>
+          <th>Apellidos</th>
+          <td id="ape"></td>
+        </tr>
+        <tr>
+          <th>Ciudad</th>
+          <td id="ciudad"></td>
+        </tr>
+      </table>
+
     </div>
-  </body>
-  <script>
-    function funAjax(url, fun) {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          fun(this);
-        }
-      };
-      xhttp.open("GET", url, true);
-      xhttp.send();
-    }
-
-    function fun1(xhttp) {
-      let personas = JSON.parse(xhttp.responseText);
-
-      var select = document.getElementById("nombre");
-
-      // generamos lista dinámica
-      for (var i = 0; i < personas.length; i++) {
-        var option = document.createElement("option");
-        option.value = personas[i].id;
-        option.text = personas[i].nombre;
-        select.add(option);
+    <script>
+      function funAjax(url, fun) {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+  
+            fun(this);
+          }
+        };
+       
+        xhttp.open("GET", url, true);
+        xhttp.send();
       }
-    }
-
-    function fun2(xhttp) {
-      let obj = JSON.parse(xhttp.responseText);
-      document.getElementById(
-        "datos"
-      ).innerHTML = `Desde servidor ${obj.nombre} de ${obj.ciudad}`;
-
-      //   En este método debemos crear la tabla con los datos del objeto seleccionado
-    }
-  </script>
+  
+      
+      
+  
+      function fun1(xhttp) {
+        let personas = JSON.parse(xhttp.responseText);
+  
+        let select = document.getElementById("nombre");
+  
+  
+        // generamos lista dinámica
+        personas.forEach((element) => {
+          let option = document.createElement("option");
+          option.value = element.id;
+          option.text = element.nombre;
+          select.appendChild(option);
+        });
+  
+       // console.log(select.value);
+        select.addEventListener('change',function () {funAjax("conexion.php?id="+select.value, fun2)});
+  
+      }
+  
+      function fun2(xhttp) {
+        // Obtenemos todos los elementos necesarios
+        let persona = JSON.parse(xhttp.responseText);
+        console.log(persona)
+        let tabla = document.getElementById("tabla");
+        let h3 = document.getElementById("h3");
+        let id = document.getElementById("id");
+        let nombre = document.getElementById("nom");
+        let apellidos = document.getElementById("ape");
+        let ciudad = document.getElementById("ciudad");
+  
+        // Mostramos la tabla y ocultamos el h3
+        tabla.removeAttribute('hidden');
+        // h3.setAttribute('hidden');
+  
+        // Pintamos en cada td de la tabla el resultado correspondiente
+        id.textContent = `${persona[0].id}`;
+        nombre.textContent = `${persona[0].nombre}`;
+        apellidos.textContent = `${persona[0].apellidos}`;
+        ciudad.textContent = `${persona[0].ciudad}`;
+        }
+        
+  
+      window.onload = function () {
+        funAjax("conexion.php?id=", fun1);
+      };
+    </script>
+  </body>
+  
 </html>
