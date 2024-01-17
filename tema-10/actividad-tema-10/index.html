@@ -1,57 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
   <meta charset="UTF-8" />
-  <body>
+  <body onload="funAjax('conexion.php', fun1)">
     <!-- Titulo estático -->
     <h3>Actividad - 10.1</h3>
 
     <!-- Seleccion de persona -->
-    <select name="nombre" id="nombre"></select>
+    <select name="nombre" id="nombre">Selecciona un nombre</select>
 
     <div id="div">
       <!-- La tabla se imprime en este div -->
     </div>
-
-    <script>
-      // Esperar a que la página esté completamente cargada antes de ejecutar el script
-      document.addEventListener("DOMContentLoaded", function () {
-        // Llamar a funAjax al cargar la página para obtener la lista de nombres
-        funAjax("conexion.php", fun1);
-      });
-
-      function funAjax(url, fun) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            fun(this);
-          }
-        };
-        xhttp.open("GET", url, true);
-        xhttp.send();
-      }
-
-      function fun1(xhttp) {
-        let personas = JSON.parse(xhttp.responseText);
-
-        var select = document.getElementById("nombre");
-
-        // Generar lista dinámica
-        for (var i = 0; i < personas.length; i++) {
-          var option = document.createElement("option");
-          option.value = personas[i].id;
-          option.text = personas[i].nombre;
-          select.add(option);
-        }
-      }
-
-      function fun2(xhttp) {
-        let obj = JSON.parse(xhttp.responseText);
-        document.getElementById(
-          "datos"
-        ).innerHTML = `Desde servidor ${obj.nombre} de ${obj.ciudad}`;
-
-        //   En este método debemos crear la tabla con los datos del objeto seleccionado
-      }
-    </script>
   </body>
+  <script>
+    function funAjax(url, fun) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          fun(this);
+        }
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();
+    }
+
+    function fun1(xhttp) {
+      let personas = JSON.parse(xhttp.responseText);
+
+      var select = document.getElementById("nombre");
+
+      // generamos lista dinámica
+      for (var i = 0; i < personas.length; i++) {
+        var option = document.createElement("option");
+        option.value = personas[i].id;
+        option.text = personas[i].nombre;
+        select.add(option);
+      }
+    }
+
+    function fun2(xhttp) {
+      let obj = JSON.parse(xhttp.responseText);
+      document.getElementById(
+        "datos"
+      ).innerHTML = `Desde servidor ${obj.nombre} de ${obj.ciudad}`;
+
+      //   En este método debemos crear la tabla con los datos del objeto seleccionado
+    }
+  </script>
 </html>
