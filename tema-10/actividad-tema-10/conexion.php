@@ -88,6 +88,8 @@ class Conexion
 
 $conexion = new Conexion();
 
+echo $conexion->getIndividuo(2);
+
 if($conexion->id == ''){
     $conexion->getPersonas();
 }else{
