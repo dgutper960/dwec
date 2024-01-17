@@ -15,7 +15,7 @@
         <!-- <table>
           <tr><th>Aqui se mostraran los datos</th></tr>
         </table> -->
-        <h3 id="h3">Aquí se mostrarán los Datos</h3>
+        <h4>Aquí se mostrarán los Datos</h4>
 
       <table id="tabla" hidden>
         <tr>
@@ -68,8 +68,8 @@
           select.appendChild(option);
         });
   
-       // console.log(select.value);
-        select.addEventListener('change',function () {funAjax("conexion.php?id="+select.value, fun2)});
+        select.addEventListener('change',function () {funAjax(`conexion.php?id=${this.value}`, fun2)});
+
   
       }
   
