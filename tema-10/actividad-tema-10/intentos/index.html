@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+  <meta charset="UTF-8" />
+  <body>
+    <!-- Titulo estático -->
+    <h3>Actividad - 10.1</h3>
+
+    <!-- Seleccion de persona -->
+    <select name="nombre" id="nombre" onchange="cargarDatos()">
+      <!-- Se cambió onclick por onchange -->
+      <!-- Agregamos una opción predeterminada -->
+      <option value="">Seleccionar Persona</option>
+    </select>
+
+    <div id="div">
+      <!-- La tabla se imprime en este div -->
+    </div>
+
+    <script>
+      function funAjax(url, fun) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            fun(this);
+          }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+
+      function cargarDatos() {
+        var selectedId = document.getElementById("nombre").value;
+
+        if (selectedId !== "") {
+          funAjax("conexion.php?id=" + selectedId, function (xhttp) {
+            let obj = JSON.parse(xhttp.responseText);
+            crearTabla(obj);
+          });
+        } else {
+          // Limpiar la tabla si no se selecciona ninguna persona
+          var div = document.getElementById("div");
+          div.innerHTML = "";
+        }
+      }
+
+      function crearTabla(obj) {
+        var div = document.getElementById("div");
+
+        // Limpiamos el contenido actual del div
+        div.innerHTML = "";
+
+        // Creamos la tabla
+        var table = document.createElement("table");
+        table.border = "1"; // Añadir bordes a la tabla (opcional)
+        table.border = "colapse";
+
+        // Encabezado de la tabla
+        var thead = table.createTHead();
+        var row = thead.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = "<b>Atributo</b>";
+        cell2.innerHTML = "<b>Valor</b>";
+
+        // Filas de la tabla
+        for (var key in obj[0]) {
+          var row = table.insertRow();
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          cell1.innerHTML = key;
+          cell2.innerHTML = obj[0][key];
+        }
+
+        // Añadir la tabla al div
+        div.appendChild(table);
+      }
+
+      // Cargar nombres al cargar la página
+      window.onload = function () {
+        funAjax("conexion.php", function (xhttp) {
+          let personas = JSON.parse(xhttp.responseText);
+
+          var select = document.getElementById("nombre");
+
+          // Añadir opciones al select
+          for (var i = 0; i < personas.length; i++) {
+            var option = document.createElement("option");
+            option.value = personas[i].id;
+            option.text = personas[i].nombre;
+            select.add(option);
+          }
+        });
+      };
+    </script>
+  </body>
+</html>
