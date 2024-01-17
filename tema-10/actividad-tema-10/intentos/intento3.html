@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+  <meta charset="UTF-8" />
+  <body>
+    <!-- Titulo estático -->
+    <h3>Actividad - 10.1</h3>
+
+    <!-- Seleccion de persona -->
+    <select name="nombre" id="nombre">
+      <option value="algo">Seleccione un nombre</option>
+    </select>
+
+    <div id="div">
+      <!-- La tabla se imprime en este div -->
+        <!-- <table>
+          <tr><th>Aqui se mostraran los datos</th></tr>
+        </table> -->
+        <h3 id="h3">Aquí se mostrarán los Datos</h3>
+
+      <table id="tabla">
+
+      </table>
+
+    </div>
+    <script>
+      function funAjax(url, fun) {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+  
+            fun(this);
+          }
+        };
+       
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+  
+      
+      
+  
+      function fun1(xhttp) {
+        let personas = JSON.parse(xhttp.responseText);
+  
+        let select = document.getElementById("nombre");
+  
+  
+        // generamos lista dinámica
+        personas.forEach((element) => {
+          let option = document.createElement("option");
+          option.value = element.id;
+          option.text = element.nombre;
+          select.appendChild(option);
+        });
+  
+       // console.log(select.value);
+        select.addEventListener('change',function () {funAjax(`conexion.php?id=${select.value}`, fun2)});
+
+  
+  
+      }
+  
+      function fun2(xhttp) {
+        // Obtenemos todos los elementos necesarios
+        let persona = JSON.parse(xhttp.responseText);
+        let tabla = document.getElementById("tabla");
+
+        // pintamos los tr, th y td
+        //id
+        let tr1 = document.createElement('tr');
+        let th1 = document.createElement('th');
+        let td1 = document.createElement('td');
+            th1.textContent = 'id';
+            td1.textContent = `${persona[0].id}`;
+            tr1.appendChild(th1);
+            tr1.appendChild(td1);
+        //nombre
+        let tr2 = document.createElement('tr');
+        let th2 = document.createElement('th');
+        let td2 = document.createElement('td');
+            th2.textContent = 'nombre';
+            td2.textContent = `${persona[0].nombre}`;
+            tr2.appendChild(th1);
+            tr2.appendChild(td1);
+        //apellidos
+        let tr3 = document.createElement('tr');
+        let th3 = document.createElement('th');
+        let td3 = document.createElement('td');
+            th3.textContent = 'apellidos';
+            td3.textContent = `${persona[0].apellidos}`;
+            tr3.appendChild(th1);
+            tr3.appendChild(td1);
+        //direccion
+        let tr4 = document.createElement('tr');
+        let th4 = document.createElement('th');
+        let td4 = document.createElement('td');
+            th4.textContent = 'ciudad';
+            td4.textContent = `${persona[0].ciudad}`;
+            tr4.appendChild(th1);
+            tr4.appendChild(td1);
+
+        // añadimos los valores a la tabla
+        tabla.appendChild(tr1);
+        tabla.appendChild(tr2);
+        tabla.appendChild(tr3);
+        tabla.appendChild(tr4);
+
+
+
+        
+
+        // damos los valores
+
+
+
+
+
+
+
+        // let h3 = document.getElementById("h3");
+        // let id = document.getElementById("id");
+        // let nombre = document.getElementById("nom");
+        // let apellidos = document.getElementById("ape");
+        // let ciudad = document.getElementById("ciudad");
+  
+        // Mostramos la tabla y ocultamos el h3
+        // tabla.removeAttribute('hidden');
+        // h3.setAttribute('hidden');
+  
+        // Pintamos en cada td de la tabla el resultado correspondiente
+        // id.textContent = `${persona[0].id}`;
+        // nombre.textContent = `${persona[0].nombre}`;
+        // apellidos.textContent = `${persona[0].apellidos}`;
+        // ciudad.textContent = `${persona[0].ciudad}`;
+        }
+        
+  
+      window.onload = function () {
+        funAjax("conexion.php?id=", fun1);
+      };
+    </script>
+  </body>
+  
+</html>
