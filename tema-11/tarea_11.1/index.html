@@ -55,6 +55,17 @@
       /*
         LLAMADA AJAX ASINCRONA CON PROMESAS
       */
+      // function funAjax(url, fun) {
+      //   fetch(url)
+      //     .then((result) => result.json())
+      //     .then(function (obj) {
+      //       fun(obj);
+      //     })
+      //     .catch((e) => console.log(`Error capturado: ${e}`));
+      // }
+      /*
+        LLAMADA AJAX ASINCRONA CON AWAY
+      */
       function funAjax(url, fun) {
         fetch(url)
           .then((result) => result.json())
