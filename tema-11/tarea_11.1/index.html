@@ -37,6 +37,9 @@
       </table>
     </div>
     <script>
+      /*
+        LLAMADA AJAX SINCRONA
+      */
       // function funAjax(url, fun) {
       //   let xhttp = new XMLHttpRequest();
       //   xhttp.onreadystatechange = function () {
@@ -49,16 +52,19 @@
       //   xhttp.open("GET", url, true);
       //   xhttp.send();
       // }
+      /*
+        LLAMADA AJAX ASINCRONA CON PROMESAS
+      */
       function funAjax(url, fun) {
         fetch(url)
           .then((result) => result.json())
-          .then(function(obj){fun(obj)})
+          .then(function (obj) {
+            fun(obj);
+          })
           .catch((e) => console.log(`Error capturado: ${e}`));
       }
 
       function fun1(obj) {
-
-
         let select = document.getElementById("nombre");
 
         // generamos lista dinámica
