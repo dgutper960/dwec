@@ -66,13 +66,13 @@
       /*
         LLAMADA AJAX ASINCRONA CON AWAY
       */
-      function funAjax(url, fun) {
-        fetch(url)
-          .then((result) => result.json())
-          .then(function (obj) {
-            fun(obj);
-          })
-          .catch((e) => console.log(`Error capturado: ${e}`));
+      async function funAjax(url, fun) {
+  
+          const respuesta = await fetch(url);
+
+          const obj = await respuesta.json();
+          fun(obj);
+   
       }
 
       function fun1(obj) {
@@ -94,7 +94,7 @@
       function fun2(obj) {
         // Obtenemos todos los elementos necesarios
         let tabla = document.getElementById("tabla");
-        let h3 = document.getElementById("h3");
+        // let h3 = document.getElementById("h3");
         let id = document.getElementById("id");
         let nombre = document.getElementById("nom");
         let apellidos = document.getElementById("ape");
