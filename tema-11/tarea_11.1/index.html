@@ -67,12 +67,14 @@
         LLAMADA AJAX ASINCRONA CON AWAY
       */
       async function funAjax(url, fun) {
-  
+        try {
           const respuesta = await fetch(url);
 
           const obj = await respuesta.json();
           fun(obj);
-   
+        } catch (error) {
+          console.log(error);
+        }
       }
 
       function fun1(obj) {
