@@ -38,22 +38,16 @@
       </table>
     </div>
     <script>
- 
-
-
       function funAjax(url, fun) {
         $.get(url, function (obj) {
           obj = JSON.parse(obj);
-          fun(obj)
+          fun(obj);
         });
       }
 
       function fun1(obj) {
-
-  
         let select = document.getElementById("nombre");
-  
-  
+
         // generamos lista dinámica
         obj.forEach((element) => {
           let option = document.createElement("option");
@@ -61,36 +55,34 @@
           option.text = element.nombre;
           select.appendChild(option);
         });
-  
-        select.addEventListener('change',function () {funAjax(`conexion.php?id=${this.value}`, fun2)});
 
-  
+        select.addEventListener("change", function () {
+          funAjax(`conexion.php?id=${this.value}`, fun2);
+        });
       }
-  
-      function fun2(obj) {
 
+      function fun2(obj) {
         let tabla = document.getElementById("tabla");
         let h3 = document.getElementById("h3");
         let id = document.getElementById("id");
         let nombre = document.getElementById("nom");
         let apellidos = document.getElementById("ape");
         let ciudad = document.getElementById("ciudad");
-  
+
         // Mostramos la tabla y ocultamos el h3
-        tabla.removeAttribute('hidden');
+        tabla.removeAttribute("hidden");
         // h3.setAttribute('hidden');
-  
+
         // Pintamos en cada td de la tabla el resultado correspondiente
         id.textContent = `${obj[0].id}`;
         nombre.textContent = `${obj[0].nombre}`;
         apellidos.textContent = `${obj[0].apellidos}`;
         ciudad.textContent = `${obj[0].ciudad}`;
-        }
+      }
 
-        $(function(){
+      $(function () {
         funAjax("conexion.php?id=", fun1);
       });
-
     </script>
   </body>
 </html>
