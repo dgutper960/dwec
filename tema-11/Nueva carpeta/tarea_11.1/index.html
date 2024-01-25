@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+  <meta charset="UTF-8" />
+  <body>
+    <!-- Titulo estático -->
+    <h3>Actividad - 11.1</h3>
+
+    <!-- Seleccion de persona -->
+    <select name="nombre" id="nombre">
+      <option value="algo">Seleccione un nombre</option>
+    </select>
+
+    <div id="div">
+      <!-- La tabla se imprime en este div -->
+      <!-- <table>
+          <tr><th>Aqui se mostraran los datos</th></tr>
+        </table> -->
+      <h4>Aquí se mostrarán los Datos</h4>
+
+      <table id="tabla" hidden>
+        <tr>
+          <th>id</th>
+          <td id="id"></td>
+        </tr>
+        <tr>
+          <th>Nombre</th>
+          <td id="nom"></td>
+        </tr>
+        <tr>
+          <th>Apellidos</th>
+          <td id="ape"></td>
+        </tr>
+        <tr>
+          <th>Ciudad</th>
+          <td id="ciudad"></td>
+        </tr>
+      </table>
+    </div>
+    <script>
+      /*
+        LLAMADA AJAX SINCRONA
+      */
+      // function funAjax(url, fun) {
+      //   let xhttp = new XMLHttpRequest();
+      //   xhttp.onreadystatechange = function () {
+      //     if (this.readyState == 4 && this.status == 200) {
+
+      //       fun(this);
+      //     }
+      //   };
+
+      //   xhttp.open("GET", url, true);
+      //   xhttp.send();
+      // }
+      /*
+        LLAMADA AJAX ASINCRONA CON PROMESAS
+      */
+      function funAjax(url, fun) {
+        fetch(url)
+          .then((result) => result.json())
+          .then(function (obj) {
+            fun(obj);
+          })
+          .catch((e) => console.log(`Error capturado: ${e}`));
+      }
+      /*
+        LLAMADA AJAX ASINCRONA CON AWAY
+      */
+      // async function funAjax(url, fun) {
+      //   try {
+      //     const respuesta = await fetch(url);
+
+      //     const obj = await respuesta.json();
+      //     fun(obj);
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // }
+
+      function fun1(obj) {
+        let select = document.getElementById("nombre");
+
+        // generamos lista dinámica
+        obj.forEach((element) => {
+          let option = document.createElement("option");
+          option.value = element.id;
+          option.text = element.nombre;
+          select.appendChild(option);
+        });
+
+        select.addEventListener("change", function () {
+          funAjax(`conexion.php?id=${this.value}`, fun2);
+        });
+      }
+
+      function fun2(obj) {
+        // Obtenemos todos los elementos necesarios
+        let tabla = document.getElementById("tabla");
+        // let h3 = document.getElementById("h3");
+        let id = document.getElementById("id");
+        let nombre = document.getElementById("nom");
+        let apellidos = document.getElementById("ape");
+        let ciudad = document.getElementById("ciudad");
+
+        // Mostramos la tabla y ocultamos el h3
+        tabla.removeAttribute("hidden");
+        // h3.setAttribute('hidden');
+
+        // Pintamos en cada td de la tabla el resultado correspondiente
+        id.textContent = `${obj[0].id}`;
+        nombre.textContent = `${obj[0].nombre}`;
+        apellidos.textContent = `${obj[0].apellidos}`;
+        ciudad.textContent = `${obj[0].ciudad}`;
+      }
+
+      window.onload = function () {
+        funAjax("conexion.php?id=", fun1);
+      };
+    </script>
+  </body>
+</html>
