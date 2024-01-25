@@ -46,38 +46,38 @@
       }
 
       function fun1(obj) {
-        let select = document.getElementById("nombre");
+        let select = $("#nombre");
 
         // generamos lista dinámica
-        obj.forEach((element) => {
-          let option = document.createElement("option");
-          option.value = element.id;
-          option.text = element.nombre;
-          select.appendChild(option);
+        $.each(obj, function (index, element) {
+          let option = $("<option></option>");
+          option.val(element.id);
+          option.text(element.nombre);
+          select.append(option);
         });
 
-        select.addEventListener("change", function () {
-          funAjax(`conexion.php?id=${this.value}`, fun2);
+        select.on("change", function () {
+          funAjax(`conexion.php?id=${$(this).val()}`, fun2);
         });
       }
 
       function fun2(obj) {
-        let tabla = document.getElementById("tabla");
-        let h3 = document.getElementById("h3");
-        let id = document.getElementById("id");
-        let nombre = document.getElementById("nom");
-        let apellidos = document.getElementById("ape");
-        let ciudad = document.getElementById("ciudad");
+        let tabla = $("#tabla");
+        let h3 = $("#h3");
+        let id = $("#id");
+        let nombre = $("#nom");
+        let apellidos = $("#ape");
+        let ciudad = $("#ciudad");
 
         // Mostramos la tabla y ocultamos el h3
-        tabla.removeAttribute("hidden");
-        // h3.setAttribute('hidden');
+        tabla.removeAttr("hidden");
+        // h3.attr('hidden', 'hidden');
 
         // Pintamos en cada td de la tabla el resultado correspondiente
-        id.textContent = `${obj[0].id}`;
-        nombre.textContent = `${obj[0].nombre}`;
-        apellidos.textContent = `${obj[0].apellidos}`;
-        ciudad.textContent = `${obj[0].ciudad}`;
+        id.text(`${obj[0].id}`);
+        nombre.text(`${obj[0].nombre}`);
+        apellidos.text(`${obj[0].apellidos}`);
+        ciudad.text(`${obj[0].ciudad}`);
       }
 
       $(function () {
