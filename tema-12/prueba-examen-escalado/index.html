@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      $(function () {
+        function funAjax(e) {
+          e.preventDefault(); // Para no abandonar la página al enviar formulario.
+
+          //--------- Ajax con Promesas -----------------------------------------
+          // let marca = document.getElementById('marca').value;
+          // let modelo = document.getElementById('modelo').value;
+
+          // var url = 'archivo.php';
+          // var data = {marca:marca,modelo:modelo}; // Como objeto
+          // fetch(url, {
+          // method: 'POST', // or 'PUT' , que envía en lugar de parámetros, una cadena JSON.
+          // body: JSON.stringify(data), // convierte a cadena JSON
+          // headers:{
+          //     'Content-Type': 'application/json'
+          // }
+          // })
+          // .then(res => res.json())
+          // .then(function(obj){document.getElementById("datos").innerHTML =
+          //                  `<h1>El coche es un ${obj.marca} ${obj.modelo}</h1>`} )
+          // .catch(error => console.error('Error:', error))
+
+          //----------------------------------------------------------------------
+
+          // ---------Ajax con jQuery---------------------------------------------
+          let marca = $("#marca").val();
+          let modelo = $("#modelo").val();
+
+          $.post(
+            "archivo.php",
+            {
+              marca: marca,
+              modelo: modelo,
+            },
+            function (obj) {
+              obj = JSON.parse(obj);
+              $("#datos").html(
+                `<h1>El coche es un ${obj.marca} ${obj.modelo}</h1>`
+              );
+
+              // añadimos tr a la fila
+              let nuevoTr = `<tr><td>${obj.marca}</td><td>${obj.modelo}</td></tr>`;
+              $('table').append(nuevoTr);
+
+            }
+          );
+          //----------------------------------------------------------------------
+        }
+        $("form").submit(funAjax);
+      });
+    </script>
+  </head>
+  <body>
+    <form>
+      <label>Marca:</label><input type="text" id="marca" required="required" />
+      <label>Modelo:</label
+      ><input type="text" id="modelo" required="required" />
+      <button type="submit">Enviar</button>
+    </form>
+    <div id="datos"></div>
+    <br>
+    <table border="1px solid black"><tr><th>Marca</th><th>Modelo</th></tr></table>
+  </body>
+</html>
