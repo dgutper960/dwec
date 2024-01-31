@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previa Examen</title>
+</head>
+<body>
+
+    <h1>Tabla Carteras</h1>
+
+    <table id="tabla">
+        <tr>
+            <th>id</th>
+            <th>Nombre</th>
+            <th>Coste €</td>
+        </tr>
+    </table>
+    
+</body>
+
+<script>
+    // llamada con promesas AWAIT
+    async function getDatos(url, fun){
+        try{
+
+            const respuesta = await fetch(url);
+            const objeto = await respuesta.json();
+            fun(objeto);
+
+        }catch(error){
+            console.log(error);
+        }
+    } 
+
+    function pintarTabla(objeto){
+
+        // Tomamos el elemento de la tabla
+        let tabla = document.getElementById('tabla');
+        
+        // vamos a recorrer el array
+        for(cartera of objeto){
+            console.log(cartera.id);
+            console.log(cartera.nombre);
+            for(coste in cartera){
+                console.log(coste);
+            }
+        }
+
+    }
+
+    window.onload = function(){
+        getDatos("carteras.json", pintarTabla);
+    }
+
+
+</script>
+</html>
