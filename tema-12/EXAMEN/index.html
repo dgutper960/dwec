@@ -37,14 +37,30 @@
             .then((res) => res.json())
             .then(function (obj) {
 
-              for(equipo of obj.equipo1){
-                console.log(equipo);
-  
+              console.log(obj);
+
+              /*
+              Propiedad de Objet devuelve un array con la propiedades del objeto
+              */
+              const equipos = Object.entries(obj)
+              console.log(equipos)
+              
+              for(const equipo of equipos) {
+                for(const jugador of equipo) {
+
+                }
               }
 
-              for(equipo of obj.equipo2){
-                console.log(equipo);
-              }
+
+
+              // for(equipo of obj.equipo1){
+              //   console.log(equipo);
+  
+              // }
+
+              // for(equipo of obj.equipo2){
+              //   console.log(equipo);
+              // }
             
 
             })
