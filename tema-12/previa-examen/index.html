@@ -9,7 +9,7 @@
 
     <h1>Tabla Carteras</h1>
 
-    <table id="tabla">
+    <table id="tabla" border="1">
         <tr>
             <th>id</th>
             <th>Nombre</th>
@@ -40,14 +40,15 @@
         
         // vamos a recorrer el array
         for(cartera of objeto){
-            console.log(cartera.id);
-            console.log(cartera.nombre);
-            for(coste in cartera){
-                console.log(coste);
+            tabla.innerHTML += `<tr><td>${cartera.id}</td><td>${cartera.nombre}</td><td></td></tr>`;
+            for(coste in cartera.costes){
+                tabla.innerHTML += `<tr><td></td><td class="elementoHover">${coste}</td><td>${cartera.costes[coste]}</td></tr>`;
             }
+            tabla.appendChild(tr);
         }
-
     }
+
+
 
     window.onload = function(){
         getDatos("carteras.json", pintarTabla);

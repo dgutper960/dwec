@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solucion 2 - Previa Examen</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    $(function(){
+        // Ajax - Promesas
+        // Indicamos la url donde se encuentra el archivo json
+        var url = "carteras.json";
+
+        // Creamos la promesa
+        // fetch(url)
+        // .then(result => result.json())
+        // .then(function(obj){
+        //     let tabla = document.getElementById('tablaCarteras');
+        //     let disenioTabla = "";
+        //     var total = 0;
+        //     var subtotal = 0;
+        //     disenioTabla += `<tr><th>ID</th><th>Nombre</th><th>Costes</th></tr>`;
+        //     for(var o of obj){
+        //         disenioTabla += `<tr><td>${o.id}</td><td>${o.nombre}</td><td></td></tr>`;
+        //         for (var propiedad in o.costes){
+        //             disenioTabla += `<tr><td></td><td class="elementoHover">${propiedad}</td><td>${o.costes[propiedad]}</td></tr>`;
+        //             subtotal += o.costes[propiedad];
+        //         }
+        //         disenioTabla += `<tr><td></td><td><b>Subtotal</b></td><td>${subtotal.toFixed(2)}</td></tr>`;
+        //         total += subtotal;
+        //         subtotal = 0;
+        //     }
+        //     disenioTabla += `<tr><td></td><td><b>Total</b></td><td>${total}</td></tr>`;
+        //     tabla.innerHTML = disenioTabla;
+        // })
+
+        // Promesas y JQuery
+        $.getJSON(url,
+            function(obj){
+                let tabla = document.getElementById('tablaCarteras');
+            let disenioTabla = "";
+            var total = 0;
+            var subtotal = 0;
+            disenioTabla += `<tr><th>ID</th><th>Nombre</th><th>Costes</th></tr>`;
+            for(var o of obj){
+                disenioTabla += `<tr><td>${o.id}</td><td>${o.nombre}</td><td></td></tr>`;
+                for (var propiedad in o.costes){
+                    disenioTabla += `<tr><td></td><td class="elementoHover">${propiedad}</td><td>${o.costes[propiedad]}</td></tr>`;
+                    subtotal += o.costes[propiedad];
+                }
+                disenioTabla += `<tr><td></td><td><b>Subtotal</b></td><td>${subtotal.toFixed(2)}</td></tr>`;
+                total += subtotal;
+                subtotal = 0;
+            }
+            disenioTabla += `<tr><td></td><td><b>Total</b></td><td>${total}</td></tr>`;
+            tabla.innerHTML = disenioTabla;
+            });
+
+    });
+        
+
+    </script>
+</head>
+<body>
+    <h1 align="center">Datos de las carteras</h1>
+    <table id="tablaCarteras" border="1"></table>
+</body>
+</html>
