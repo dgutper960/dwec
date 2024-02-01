@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 5px;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      $(function () {
+        function funAjax(e) {
+          e.preventDefault(); // Para no abandonar la página al enviar formulario.
+
+          //--------- Con Promesas--------------------------------------------------------
+
+          let equipo1 = document.getElementById("equipo1").value;
+          let equipo2 = document.getElementById("equipo2").value;
+
+          let url = "archivo.php";
+          let data = { equipo1: equipo1, equipo2: equipo2 };
+          fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then(function (obj) {
+
+              for(equipo of obj.equipo1){
+                console.log(equipo);
+  
+              }
+
+              for(equipo of obj.equipo2){
+                console.log(equipo);
+              }
+            
+
+            })
+            .catch((error) => console.error("Error:", error));
+
+          //-------------------------------------------------------------------------------
+
+          // // -------Con jQuery----------------------------------------------------------
+
+          // $(document).ready(function () {
+          //   $("button").click(function () {
+          //     $.post(
+          //       "archivo.php",
+          //       {
+          //         equipo1: $("#equipo1").val,
+          //         equipo1: $("#equipo2").val,
+          //       },
+          //       function (obj) {
+          //         obj = JSON.parse(obj);
+          //         // recorremos el objeto
+          //         for(equipo of obj){
+          //           console.log(equipo);
+          //         }
+
+          //         $("#datos");
+
+          //       }
+          //     );
+          //   });
+          // });
+
+          // //----------------------------------------------------------------------------
+        }
+        $("form").submit(funAjax);
+      });
+    </script>
+  </head>
+  <body>
+    <form>
+      <label>ID_Equipo1:</label
+      ><input type="number" min="1" id="equipo1" required="required" />
+      <label>ID_Equipo2:</label
+      ><input type="number" min="1" id="equipo2" required="required" />
+      <button type="submit">Enviar</button>
+    </form>
+    <br />
+
+    <table>
+      <thead>
+        <tr>
+          <th>Equipo1</th>
+          <th>Equipo2</th>
+        </tr>
+      </thead>
+      <tbody id="datos"></tbody>
+    </table>
+  </body>
+</html>

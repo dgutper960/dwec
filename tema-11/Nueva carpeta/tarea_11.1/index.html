@@ -55,27 +55,27 @@
       /*
         LLAMADA AJAX ASINCRONA CON PROMESAS
       */
-      function funAjax(url, fun) {
-        fetch(url)
-          .then((result) => result.json())
-          .then(function (obj) {
-            fun(obj);
-          })
-          .catch((e) => console.log(`Error capturado: ${e}`));
-      }
+      // function funAjax(url, fun) {
+      //   fetch(url)
+      //     .then((result) => result.json())
+      //     .then(function (obj) {
+      //       fun(obj);
+      //     })
+      //     .catch((e) => console.log(`Error capturado: ${e}`));
+      // }
       /*
         LLAMADA AJAX ASINCRONA CON AWAY
       */
-      // async function funAjax(url, fun) {
-      //   try {
-      //     const respuesta = await fetch(url);
+      async function funAjax(url, fun) {
+        try {
+          const respuesta = await fetch(url);
 
-      //     const obj = await respuesta.json();
-      //     fun(obj);
-      //   } catch (error) {
-      //     console.log(error);
-      //   }
-      // }
+          const obj = await respuesta.json();
+          fun(obj);
+        } catch (error) {
+          console.log(error);
+        }
+      }
 
       function fun1(obj) {
         let select = document.getElementById("nombre");

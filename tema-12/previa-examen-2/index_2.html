@@ -13,27 +13,27 @@
         var url = "carteras.json";
 
         // Creamos la promesa
-        // fetch(url)
-        // .then(result => result.json())
-        // .then(function(obj){
-        //     let tabla = document.getElementById('tablaCarteras');
-        //     let disenioTabla = "";
-        //     var total = 0;
-        //     var subtotal = 0;
-        //     disenioTabla += `<tr><th>ID</th><th>Nombre</th><th>Costes</th></tr>`;
-        //     for(var o of obj){
-        //         disenioTabla += `<tr><td>${o.id}</td><td>${o.nombre}</td><td></td></tr>`;
-        //         for (var propiedad in o.costes){
-        //             disenioTabla += `<tr><td></td><td class="elementoHover">${propiedad}</td><td>${o.costes[propiedad]}</td></tr>`;
-        //             subtotal += o.costes[propiedad];
-        //         }
-        //         disenioTabla += `<tr><td></td><td><b>Subtotal</b></td><td>${subtotal.toFixed(2)}</td></tr>`;
-        //         total += subtotal;
-        //         subtotal = 0;
-        //     }
-        //     disenioTabla += `<tr><td></td><td><b>Total</b></td><td>${total}</td></tr>`;
-        //     tabla.innerHTML = disenioTabla;
-        // })
+        fetch(url)
+        .then(result => result.json())
+        .then(function(obj){
+            let tabla = document.getElementById('tablaCarteras');
+            let disenioTabla = "";
+            var total = 0;
+            var subtotal = 0;
+            disenioTabla += `<tr><th>ID</th><th>Nombre</th><th>Costes</th></tr>`;
+            for(var o of obj){
+                disenioTabla += `<tr><td>${o.id}</td><td>${o.nombre}</td><td></td></tr>`;
+                for (var propiedad in o.costes){
+                    disenioTabla += `<tr><td></td><td class="elementoHover">${propiedad}</td><td>${o.costes[propiedad]}</td></tr>`;
+                    subtotal += o.costes[propiedad];
+                }
+                disenioTabla += `<tr><td></td><td><b>Subtotal</b></td><td>${subtotal.toFixed(2)}</td></tr>`;
+                total += subtotal;
+                subtotal = 0;
+            }
+            disenioTabla += `<tr><td></td><td><b>Total</b></td><td>${total}</td></tr>`;
+            tabla.innerHTML = disenioTabla;
+        })
 
         // Promesas y JQuery
         $.getJSON(url,

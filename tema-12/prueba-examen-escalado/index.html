@@ -9,47 +9,47 @@
           e.preventDefault(); // Para no abandonar la página al enviar formulario.
 
           //--------- Ajax con Promesas -----------------------------------------
-          // let marca = document.getElementById('marca').value;
-          // let modelo = document.getElementById('modelo').value;
+          let marca = document.getElementById('marca').value;
+          let modelo = document.getElementById('modelo').value;
 
-          // var url = 'archivo.php';
-          // var data = {marca:marca,modelo:modelo}; // Como objeto
-          // fetch(url, {
-          // method: 'POST', // or 'PUT' , que envía en lugar de parámetros, una cadena JSON.
-          // body: JSON.stringify(data), // convierte a cadena JSON
-          // headers:{
-          //     'Content-Type': 'application/json'
-          // }
-          // })
-          // .then(res => res.json())
-          // .then(function(obj){document.getElementById("datos").innerHTML =
-          //                  `<h1>El coche es un ${obj.marca} ${obj.modelo}</h1>`} )
-          // .catch(error => console.error('Error:', error))
+          var url = 'archivo.php';
+          var data = {marca:marca,modelo:modelo}; // Como objeto
+          fetch(url, {
+          method: 'POST', // or 'PUT' , que envía en lugar de parámetros, una cadena JSON.
+          body: JSON.stringify(data), // convierte a cadena JSON
+          headers:{
+              'Content-Type': 'application/json'
+          }
+          })
+          .then(res => res.json())
+          .then(function(obj){document.getElementById("datos").innerHTML =
+                           `<h1>El coche es un ${obj.marca} ${obj.modelo}</h1>`} )
+          .catch(error => console.error('Error:', error))
 
           //----------------------------------------------------------------------
 
           // ---------Ajax con jQuery---------------------------------------------
-          let marca = $("#marca").val();
-          let modelo = $("#modelo").val();
+          // let marca = $("#marca").val();
+          // let modelo = $("#modelo").val();
 
-          $.post(
-            "archivo.php",
-            {
-              marca: marca,
-              modelo: modelo,
-            },
-            function (obj) {
-              obj = JSON.parse(obj);
-              $("#datos").html(
-                `<h1>El coche es un ${obj.marca} ${obj.modelo}</h1>`
-              );
+          // $.post(
+          //   "archivo.php",
+          //   {
+          //     marca: marca,
+          //     modelo: modelo,
+          //   },
+          //   function (obj) {
+          //     obj = JSON.parse(obj);
+          //     $("#datos").html(
+          //       `<h1>El coche es un ${obj.marca} ${obj.modelo}</h1>`
+          //     );
 
-              // añadimos tr a la fila
-              let nuevoTr = `<tr><td>${obj.marca}</td><td>${obj.modelo}</td></tr>`;
-              $('table').append(nuevoTr);
+          //     // añadimos tr a la fila
+          //     let nuevoTr = `<tr><td>${obj.marca}</td><td>${obj.modelo}</td></tr>`;
+          //     $('table').append(nuevoTr);
 
-            }
-          );
+          //   }
+          // );
           //----------------------------------------------------------------------
         }
         $("form").submit(funAjax);
