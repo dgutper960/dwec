@@ -47,7 +47,7 @@ $(function () {
      */
     class Boton {
         constructor(private contador: number) { // CONTADOR ES UNA PROPIEDAD DE LA CLASE IMPLEMENTADA EN EL CONSTRUCUTOR
-            // CREAMOS EL BOTON Y AÑADIMOS EL EVENTO PARA EL ALERT
+            // CREAMOS EL BOTON Y AÑADIMOS EL AVENTO PARA EL ALERT
             $(`<button id="boton${this.contador}">Botón ${this.contador}</button>`);
             $('#button-container').on('click', `#boton${this.contador}`, () => {
                 alert(`¡Botón ${this.contador} pulsado!`);
