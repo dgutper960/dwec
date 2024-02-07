@@ -1,46 +1,69 @@
+/**
+ * Implementación de interfaz
+ */
+
 interface GrupoBot {
     add(): void;
     rest(): void;
 }
 
-class GrupoBot implements GrupoBot {
-    private contador: number = 0;
+/**
+ * Clase principal que implementa la interfaz
+ */
+$(function () {
 
-    constructor() {
-        $('#crear').on('click', () => {
-            this.add();
-        });
 
-        $('#eliminar').on('click', () => {
-            this.rest();
-        });
-    }
+    class GrupoBot implements GrupoBot {
+        private contador: number = 0;
 
-    add(): void {
-        this.contador++;
-        const nuevoBoton = $(`<button id="boton${this.contador}">Botón ${this.contador}</button>`);
-        nuevoBoton.appendTo('#button-container');
-        const boton = new Boton(this.contador);
-        boton.bindClickEvent();
-    }
+        constructor() {
+            $('#crear').on('click', () => {
+                this.add();
+            });
 
-    rest(): void {
-        if (this.contador > 0) {
-            $(`#boton${this.contador}`).remove();
-            this.contador--;
+            $('#eliminar').on('click', () => {
+                this.rest();
+            });
+        }
+
+        // metodo añadir boton
+        add(): void {
+            this.contador++;
+            console.log(this.contador);
+            new Boton(this.contador);
+
+        }
+        // metodo eliminar boton
+        rest(): void {
+            if (this.contador > 0) { // controlamos que no se eliminen botones que no existen
+                $(`#boton${this.contador}`).remove();
+                this.contador--;
+            }
         }
     }
-}
 
-class Boton {
-    constructor(private numero: number) {}
+    /**
+     * Clase boton 
+     */
+    class Boton {
+        constructor(private contador: number) {
+            
+            $(`<button id="boton${this.contador}">Botón ${this.contador}</button>`);
+            $('#button-container').on('click', `#boton${this.contador}`, () => {
+                alert(`¡Botón ${this.contador} pulsado!`);
+            });
+        }
 
-    public bindClickEvent(): void {
-        $('#button-container').on('click', `#boton${this.numero}`, () => {
-            alert(`¡Botón ${this.numero} pulsado!`);
-        });
     }
-}
+
+    /**
+     * Debemos instanciar la clase principal al menos una vez
+     */
+    new GrupoBot();
+
+});
+
+
 
 
 
