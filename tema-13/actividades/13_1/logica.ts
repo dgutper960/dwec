@@ -18,26 +18,26 @@ $(function () {
 
         constructor() {
             $('#crear').on('click', () => {
-                this.add();
+                this.add(); // METODOS DE ESTA CLASE
             });
 
             $('#eliminar').on('click', () => {
-                this.rest();
+                this.rest(); // METODOS DE ESTA CLASE
             });
         }
 
         // metodo añadir boton
         add(): void {
-            this.contador++;
+            this.contador++; // INCREMENTO DE CONTADOR CON CADA LLAMADA
             console.log(this.contador);
-            new Boton(this.contador);
+            new Boton(this.contador); // INSTANCIOAMOS BOTON CON CADA LLAMADA
 
         }
         // metodo eliminar boton
         rest(): void {
             if (this.contador > 0) { // controlamos que no se eliminen botones que no existen
                 $(`#boton${this.contador}`).remove();
-                this.contador--;
+                this.contador--; // DECREMENTO CON LA LLAMADA AL MÉTODO
             }
         }
     }
@@ -46,8 +46,8 @@ $(function () {
      * Clase boton 
      */
     class Boton {
-        constructor(private contador: number) {
-            
+        constructor(private contador: number) { // CONTADOR ES UNA PROPIEDAD DE LA CLASE IMPLEMENTADA EN EL CONSTRUCUTOR
+            // CREAMOS EL BOTON Y AÑADIMOS EL AVENTO PARA EL ALERT
             $(`<button id="boton${this.contador}">Botón ${this.contador}</button>`);
             $('#button-container').on('click', `#boton${this.contador}`, () => {
                 alert(`¡Botón ${this.contador} pulsado!`);
