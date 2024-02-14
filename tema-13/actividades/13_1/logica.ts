@@ -53,7 +53,6 @@ $(function () {
                 alert(`¡Botón ${this.contador} pulsado!`);
             });
         }
-
     }
 
     /**
