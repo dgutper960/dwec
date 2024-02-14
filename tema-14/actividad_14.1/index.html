@@ -15,10 +15,13 @@
   <!-- Finalmente se ha puesto este script en el html -->
   <script>
       let div = document.getElementById('resultado');
+      // Programamos el eventListener
       let boton = document.getElementById('boton').addEventListener('click', () => {
+        // Promesas
       fetch('/pagAjax')
         .then(response => response.json())
         .then(data => {
+          // Manejamos el DOM
           let resultado = document.createElement('h2');
           let feedback = document.createElement('h1');
           resultado.textContent = `Hola ${data.nombre} ${data.apellidos}`;
@@ -26,6 +29,7 @@
           div.appendChild(resultado);
           div.appendChild(feedback);
         })
+        // Bloque para posibles errores
         .catch(error => console.error('Error:', error));
     });
   </script>
