@@ -4,12 +4,12 @@ const app = express();
 const router = express.Router();
 var __dirname = path.resolve(); //Resuelve y adapta para módulos ES6
 router.get('/',function(req,res){
-  // enviamos el archivo index.html
+  // Enviamos el archivo index.html
   res.sendFile(path.join(__dirname+'/index.html'));
 
 });
 
-
+// Indicamos la ruta para el envio por GET
 router.get('/pagAjax',function(req,res){
 
   // Simulamos los datos JSON

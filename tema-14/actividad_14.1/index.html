@@ -12,15 +12,16 @@
 
   </div>
 
+  <!-- Finalmente se ha puesto este script en el html -->
   <script>
       let div = document.getElementById('resultado');
       let boton = document.getElementById('boton').addEventListener('click', () => {
       fetch('/pagAjax')
         .then(response => response.json())
         .then(data => {
-          let resultado = document.createElement('h1');
+          let resultado = document.createElement('h2');
           let feedback = document.createElement('h1');
-          resultado.innerText = `Hola ${data.nombre} ${data.apellidos}`;
+          resultado.textContent = `Hola ${data.nombre} ${data.apellidos}`;
           feedback.textContent = 'Enhorabuena, lo lograste!!';
           div.appendChild(resultado);
           div.appendChild(feedback);
