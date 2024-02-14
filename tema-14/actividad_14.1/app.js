@@ -7,15 +7,23 @@ router.get('/',function(req,res){
   // enviamos el archivo index.html
   res.sendFile(path.join(__dirname+'/index.html'));
 
- 
 });
+
+
 router.get('/pagAjax',function(req,res){
-  res.sendFile(path.join( __dirname+'/index.html'));
 
+  // Simulamos los datos JSON
+  let dataJSON = {
+    nombre: 'David',
+    apellidos: 'Gutiérrez Pérez'
+  };
+  
+  // llamamos a res
+  res.json(dataJSON);
 
 });
 
-
+// Iniciamos servidor
 app.use('/', router);
 app.use(express.static(__dirname));//IMPORTANTE carga archivos js,css, etc.., cargados en los html desde directorio
 app.listen(3000);
