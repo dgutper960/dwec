@@ -8,14 +8,22 @@
 <body>
   <h1>Index.html Leido</h1>
   <button id="boton">Press Me</button>
-  <div id="resultado"></div>
+  <div id="resultado">
+
+  </div>
 
   <script>
-    document.getElementById('boton').addEventListener('click', () => {
+      let div = document.getElementById('resultado');
+      let boton = document.getElementById('boton').addEventListener('click', () => {
       fetch('/pagAjax')
         .then(response => response.json())
         .then(data => {
-          document.getElementById('resultado').innerText = `Hola ${data.nombre} ${data.apellidos}`;
+          let resultado = document.createElement('h1');
+          let feedback = document.createElement('h1');
+          resultado.innerText = `Hola ${data.nombre} ${data.apellidos}`;
+          feedback.textContent = 'Enhorabuena, lo lograste!!';
+          div.appendChild(resultado);
+          div.appendChild(feedback);
         })
         .catch(error => console.error('Error:', error));
     });
