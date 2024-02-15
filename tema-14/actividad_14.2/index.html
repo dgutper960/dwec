@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexion APP MondoDB</title>
+</head>
+<body>
+    
+    <h1>Form Add User</h1>
+    <!-- Indicamos el método (POST) en el formulario -->
+    <form action="#" method="POST">
+
+        <div>
+            <label for="nombre">Nombre</label>
+            <br>
+            <input type="text" name="nombre" id="nombre">
+        </div>
+
+        <div>
+            <label for="apellidos">Apellidos</label>
+            <br>
+            <input type="text" name="apellidos" id="apellidos">
+        </div>
+
+        <div>
+            <button type="submit">Enviar</button>
+            <button type="reset">Borrar</button>
+        </div>
+
+    </form>
+
+    <h2>Lista de Usuarios Insertados</h2>
+    <ul id="user_list">Desde Servidor
+
+    </ul>
+
+</body>
+<!-- Implemenramos el script para la petición AJAX -->
+<script>
+
+function petAjax(){
+    // tomamos el elemento DOM
+    const li = document.getElementById('user_list');
+    // Implementamos la petición AJAX
+    const url = "/conexion";
+    fetch(url)
+    .then(res => res.json())
+    .then(obj => {
+        obj.forEach(element => {
+            // creamos el elemento li
+            let user = document.createElement('li');
+            // componemos el li con el nombre completo del usuario
+           user = `${element.nombre} ${element.apellidos}`;
+           // añadimos el usuario a la lista 
+            li.appendChild(user);
+        });
+    })
+}
+
+</script>
+
+
+</html>

@@ -1,0 +1,33 @@
+import { MongoClient, ServerApiVersion } from 'mongodb';
+import express from 'express';
+import path from 'path';
+
+const app = express();
+
+const router = express.Router();
+const __dirname = path.resolve();
+
+router.get('/',(req,res)=>{
+    res.sendFile(path.join(__dirname, '/index.html'));
+});
+
+app.use(express.static(__dirname));
+
+app.listen(3000, () => console.log('Escuchando en el puerto 3000'));
+
+
+const uri = "mongodb+srv://gutperdadev:vZxnlUz938ImAUgr@dagupecluster0.8mci2hp.mongodb.net/";
+const client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology:true});
+
+app.get('/conexion', async (req, res) =>{
+    try {
+        await client.connect();
+        const coleccion = client.db("Tarea_1").collection("Nombres");
+        const datos = await coleccion.find().toArray();
+        res.json(datos);
+    } catch (error) {
+        console.error(error);
+    } finally {
+        await client.close();
+    }
+});
