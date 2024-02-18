@@ -1,28 +1,101 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BBDD MongoDB</title>
-</head>
-<body>
-    <h1>Formulario de nuevos usuarios</h1>
-    <form id="myForm" action="/datos" method="POST">
-        <label for="nombre">Nombre</label><br>
-        <input type="text" name="nombre" id="nombre" required><br>
-        <label for="apellidos">Apellidos</label><br>
-        <input type="text" name="apellidos" id="apellidos" required><br>
-        <button type="submit" id="botInsertar">Enviar datos</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Datos a MongoDB</title>
+  </head>
+  <body>
+    <form id="form" action="/datos" method="POST">
+      <h1>Formulario Inserción Usuario</h1>
+      <label for="nombre">Nombre</label>
+      <br />
+      <input type="text" name="nombre" id="nombre" />
+      <br /><br />
+      <label for="apellidos" name="apellidos">apellidos</label>
+      <br />
+      <input type="text" name="apellidos" id="apellidos" />
+      <br /><br />
+      <button type="submit">Insertar</button>
     </form>
-    <br>
-    <table id="datosMongoDB" border="1" style="display: none;"></table>
+    <br />
+    <button id="refresh">Refrescar Tabla</button>
+    <table id="tabla" border="1"></table>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const form = document.getElementById("form");
+      const refreshBtn = document.getElementById("refresh");
+      const table = document.getElementById("tabla");
 
-    <script>
+      // Función para insertar un nuevo registro
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const nombre = document.getElementById("nombre").value;
+        const apellidos = document.getElementById("apellidos").value;
+        insertarRegistro({ nombre, apellidos });
+      });
+
+      // Función para refrescar la tabla
+      refreshBtn.addEventListener("click", function() {
+        refrescarTabla();
+      });
+
+      // Función para insertar un registro en la base de datos y actualizar la tabla
+      async function insertarRegistro(data) {
+        try {
+          const response = await fetch("/datos", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          });
+          const newData = await response.json();
+          actualizarTabla(newData);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      // Función para obtener los datos de la base de datos y actualizar la tabla
+      async function refrescarTabla() {
+        try {
+          const response = await fetch("/datos");
+          const data = await response.json();
+          actualizarTabla(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      // Función para actualizar la tabla con los datos recibidos
+      function actualizarTabla(data) {
+        table.innerHTML = ""; // Limpiar la tabla antes de agregar nuevos datos
+        data.forEach(usuario => {
+          const row = document.createElement("tr");
+          const nombreCell = document.createElement("td");
+          const apellidosCell = document.createElement("td");
+          nombreCell.textContent = usuario.nombre;
+          apellidosCell.textContent = usuario.apellidos;
+          row.appendChild(nombreCell);
+          row.appendChild(apellidosCell);
+          table.appendChild(row);
+        });
+      }
+    });
+  </script>
+</html>
+
+<!-- 
+
+
+        <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const form = document.getElementById("myForm");
+            const form = document.getElementById("form");
             const nombreInput = document.getElementById("nombre");
             const apellidosInput = document.getElementById("apellidos");
-            const table = document.getElementById("datosMongoDB");
+            const table = document.getElementById("tabla");
 
             form.addEventListener("submit", function(event) {
                 event.preventDefault();
@@ -42,16 +115,16 @@
                 .then(res => res.json())
                 .then(obj => {
                     table.style.display = "block";
-                    table.innerHTML = ""; // Clear the table before appending new rows
+                    table.innerHTML = ""; // Clear the table before appending new trs
                     obj.forEach(usuario => {
-                        const row = document.createElement("tr");
-                        const nombreCell = document.createElement("td");
-                        const apellidosCell = document.createElement("td");
-                        nombreCell.textContent = usuario.nombre;
-                        apellidosCell.textContent = usuario.apellidos;
-                        row.appendChild(nombreCell);
-                        row.appendChild(apellidosCell);
-                        table.appendChild(row);
+                        const tr = document.createElement("tr");
+                        const tdName = document.createElement("td");
+                        const tdApellidos = document.createElement("td");
+                        tdName.textContent = usuario.nombre;
+                        tdApellidos.textContent = usuario.apellidos;
+                        tr.appendChild(tdName);
+                        tr.appendChild(tdApellidos);
+                        table.appendChild(tr);
                     });
                 })
                 .catch(error => {
@@ -60,5 +133,5 @@
             });
         });
     </script>
-</body>
-</html>
+
+ -->
