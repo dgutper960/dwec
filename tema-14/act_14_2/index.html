@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBDD MongoDB</title>
+</head>
+<body>
+    <h1>Formulario de nuevos usuarios</h1>
+    <form id="myForm" action="/datos" method="POST">
+        <label for="nombre">Nombre</label><br>
+        <input type="text" name="nombre" id="nombre" required><br>
+        <label for="apellidos">Apellidos</label><br>
+        <input type="text" name="apellidos" id="apellidos" required><br>
+        <button type="submit" id="botInsertar">Enviar datos</button>
+    </form>
+    <br>
+    <table id="datosMongoDB" border="1" style="display: none;"></table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("myForm");
+            const nombreInput = document.getElementById("nombre");
+            const apellidosInput = document.getElementById("apellidos");
+            const table = document.getElementById("datosMongoDB");
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+                const url = "/datos";
+                const objeto = {
+                    nombre: nombreInput.value,
+                    apellidos: apellidosInput.value
+                };
+
+                fetch(url, {
+                    method: "POST",
+                    body: JSON.stringify(objeto),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => res.json())
+                .then(obj => {
+                    table.style.display = "block";
+                    table.innerHTML = ""; // Clear the table before appending new rows
+                    obj.forEach(usuario => {
+                        const row = document.createElement("tr");
+                        const nombreCell = document.createElement("td");
+                        const apellidosCell = document.createElement("td");
+                        nombreCell.textContent = usuario.nombre;
+                        apellidosCell.textContent = usuario.apellidos;
+                        row.appendChild(nombreCell);
+                        row.appendChild(apellidosCell);
+                        table.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -16,7 +16,7 @@ app.use(express.static(__dirname));
 app.listen(3000, () => console.log('Escuchando en el puerto 3000'));
 
 
-const uri = "mongodb+srv://gutperdadev:vZxnlUz938ImAUgr@dagupecluster0.8mci2hp.mongodb.net/";
+const uri = "mongodb+srv://gutperdadev:nXTqSQRISSwpLJDd@dwescluster.hnbcdtr.mongodb.net/";
 const client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology:true});
 
 app.get('/conexion', async (req, res) =>{
