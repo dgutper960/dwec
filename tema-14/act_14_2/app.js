@@ -3,6 +3,8 @@ const express = require("express");
 const path = require("path");
 const { MongoClient } = require("mongodb");
 
+// const __dirname = path.resolve();
+
 // Creamos objeto de express
 const app = express();
 // Preparamos el enrutador
@@ -14,17 +16,10 @@ const client = new MongoClient(
 );
 
 // Función para conectar a la base de datos
-async function connectDB() {
+async function conexionBBDD() {
     await client.connect();
   }
   
-  // Middleware para manejar errores
-  function errorHandler(err, req, res, next) {
-    console.error(err);
-    res.status(500).send('Error interno del servidor');
-  }
-  
-  // Middleware para analizar el cuerpo de las solicitudes en formato JSON
   app.use(express.json());
   
   // Ruta GET para enviar el archivo index.html cuando se acceda a la raíz del servidor
@@ -37,9 +32,9 @@ async function connectDB() {
     try {
       // Insertamos los datos en la BBDD
       await client.db("Actividad_14_2").collection("Usuarios").insertOne(req.body);
-      next(); // Pasamos al siguiente middleware
+      next(); 
     } catch (error) {
-      next(error); // Pasamos el error al siguiente middleware
+      next(error); 
     }
   }, async (req, res) => {
     try {
@@ -53,12 +48,9 @@ async function connectDB() {
   });
   
   // Conexión a la base de datos
-  connectDB()
+  conexionBBDD()
     .then(() => {
-      // Agregamos el enrutador al middleware de la aplicación
       app.use("/", router);
-      // Middleware para manejar errores
-      app.use(errorHandler);
       // Escuchamos en el puerto 3000
       app.listen(3000, () => console.log('Escuchando en el puerto 3000'));
     })

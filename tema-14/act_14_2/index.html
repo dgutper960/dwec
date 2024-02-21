@@ -19,13 +19,13 @@
       <button type="submit">Insertar</button>
     </form>
     <br />
-    <button id="refresh">Refrescar Tabla</button>
+    <!-- <button id="refresh">Refrescar Tabla</button> -->
     <table id="tabla" border="1"></table>
   </body>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const form = document.getElementById("form");
-      const refreshBtn = document.getElementById("refresh");
+      // const refreshBtn = document.getElementById("refresh");
       const table = document.getElementById("tabla");
 
       // Función para insertar un nuevo registro
@@ -34,11 +34,6 @@
         const nombre = document.getElementById("nombre").value;
         const apellidos = document.getElementById("apellidos").value;
         insertarRegistro({ nombre, apellidos });
-      });
-
-      // Función para refrescar la tabla
-      refreshBtn.addEventListener("click", function() {
-        refrescarTabla();
       });
 
       // Función para insertar un registro en la base de datos y actualizar la tabla
@@ -73,65 +68,16 @@
       function actualizarTabla(data) {
         table.innerHTML = ""; // Limpiar la tabla antes de agregar nuevos datos
         data.forEach(usuario => {
-          const row = document.createElement("tr");
-          const nombreCell = document.createElement("td");
-          const apellidosCell = document.createElement("td");
-          nombreCell.textContent = usuario.nombre;
-          apellidosCell.textContent = usuario.apellidos;
-          row.appendChild(nombreCell);
-          row.appendChild(apellidosCell);
-          table.appendChild(row);
+          const tr = document.createElement("tr");
+          const tdNombre = document.createElement("td");
+          const tdApellidos = document.createElement("td");
+          tdNombre.textContent = usuario.nombre;
+          tdApellidos.textContent = usuario.apellidos;
+          tr.appendChild(tdNombre);
+          tr.appendChild(tdApellidos);
+          table.appendChild(tr);
         });
       }
     });
   </script>
 </html>
-
-<!-- 
-
-
-        <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const form = document.getElementById("form");
-            const nombreInput = document.getElementById("nombre");
-            const apellidosInput = document.getElementById("apellidos");
-            const table = document.getElementById("tabla");
-
-            form.addEventListener("submit", function(event) {
-                event.preventDefault();
-                const url = "/datos";
-                const objeto = {
-                    nombre: nombreInput.value,
-                    apellidos: apellidosInput.value
-                };
-
-                fetch(url, {
-                    method: "POST",
-                    body: JSON.stringify(objeto),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(res => res.json())
-                .then(obj => {
-                    table.style.display = "block";
-                    table.innerHTML = ""; // Clear the table before appending new trs
-                    obj.forEach(usuario => {
-                        const tr = document.createElement("tr");
-                        const tdName = document.createElement("td");
-                        const tdApellidos = document.createElement("td");
-                        tdName.textContent = usuario.nombre;
-                        tdApellidos.textContent = usuario.apellidos;
-                        tr.appendChild(tdName);
-                        tr.appendChild(tdApellidos);
-                        table.appendChild(tr);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            });
-        });
-    </script>
-
- -->
