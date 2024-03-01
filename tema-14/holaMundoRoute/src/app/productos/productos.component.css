@@ -1,4 +1,13 @@
-mat-grid-tile {
-    background: lightblue;
-  }
-  
+.example-card {
+  display: flex;
+  justify-content: center;
+  background: lightblue;
+}
+
+img{
+  height: 300px;
+  width: 450px;
+  margin-left: 15%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

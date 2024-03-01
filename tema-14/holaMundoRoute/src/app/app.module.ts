@@ -16,6 +16,8 @@ import { ChildAComponent } from './child-a/child-a.component';
 import { ChildBComponent } from './child-b/child-b.component';
 
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     AppRoutingModule,
     MatToolbarModule,
     MatButtonModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule
   ],
   providers: [
     provideAnimationsAsync()
