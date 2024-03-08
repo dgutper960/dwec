@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the '15.5_ngBootPrime' title`, () => {
+  it(`should have the 'ngBootPrime' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('15.5_ngBootPrime');
+    expect(app.title).toEqual('ngBootPrime');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, 15.5_ngBootPrime');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ngBootPrime');
   });
 });

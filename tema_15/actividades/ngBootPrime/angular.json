@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "15.5_ngBootPrime": {
+    "ngBootPrime": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/15.5-ng-boot-prime",
+            "outputPath": "dist/ng-boot-prime",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -25,15 +25,10 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css", 
-              "src/styles.css"
-            ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",  
+                     "src/styles.css"
+                ],              
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -63,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "15.5_ngBootPrime:build:production"
+              "buildTarget": "ngBootPrime:build:production"
             },
             "development": {
-              "buildTarget": "15.5_ngBootPrime:build:development"
+              "buildTarget": "ngBootPrime:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +69,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "15.5_ngBootPrime:build"
+            "buildTarget": "ngBootPrime:build"
           }
         },
         "test": {
