@@ -17,52 +17,53 @@
  $(function(){ 
     function funAjax(e) {
         e.preventDefault(); // Para no abandonar la página al enviar formulario.
-        //--------- Con Promesas .then --------------------------------------------------------
-        // var url = 'examen1_2eva_2024.php';  
-        // var data = {
-        //         equipo1: $('#equipo1').val(),
-        //         equipo2: $('#equipo2').val()  
-        //     }; // Como objeto
-        // fetch(url, {
-        // method: 'POST', // or 'PUT' , que envía en lugar de parámetros, una cadena JSON.
-        // body: JSON.stringify(data), // convierte a cadena JSON
-        // headers:{
-        //     'Content-Type': 'application/json'
-        // }
-        // })
-        // .then(res => res.json())
-        // .then(function(obj){
-        //         $('#datos').html('');
-        //         $.each(obj.equipo1,function(index,element){  
-        //              $('#datos').append(`<tr><td>${obj.equipo1[index]}</td><td>${obj.equipo2[index]}</td></tr>`)
-        //         })}) 
-        // .catch(error => console.error('Error:', error))
-        //-------------------------------------------------------------------------------
 
-        //--------- Con Async  -----------------------------------------------------
-        // async function envia_post(){
+        // --------- Con Promesas .then --------------------------------------------------------
+        var url = 'examen1_2eva_2024.php';  
+        var data = {
+                equipo1: $('#equipo1').val(),
+                equipo2: $('#equipo2').val()  
+            }; // Como objeto
+        fetch(url, {
+        method: 'POST', // or 'PUT' , que envía en lugar de parámetros, una cadena JSON.
+        body: JSON.stringify(data), // convierte a cadena JSON
+        headers:{
+            'Content-Type': 'application/json'
+        }
+        })
+        .then(res => res.json())
+        .then(function(obj){
+                $('#datos').html('');
+                $.each(obj.equipo1,function(index,element){  
+                     $('#datos').append(`<tr><td>${obj.equipo1[index]}</td><td>${obj.equipo2[index]}</td></tr>`)
+                })}) 
+        .catch(error => console.error('Error:', error))
+        // -------------------------------------------------------------------------------
+
+        // --------- Con Async  -----------------------------------------------------
+        async function envia_post(){
             
-        //         var url = 'examen1_2eva_2024.php';  
-        //         var data = {
-        //                 equipo1: $('#equipo1').val(),
-        //                 equipo2: $('#equipo2').val()  
-        //             }; // Como objeto
+                var url = 'examen1_2eva_2024.php';  
+                var data = {
+                        equipo1: $('#equipo1').val(),
+                        equipo2: $('#equipo2').val()  
+                    }; // Como objeto
                 
-        //         const response = await fetch(url, {
-        //         method: 'POST', // or 'PUT' , que envía en lugar de parámetros, una cadena JSON.
-        //         body: JSON.stringify(data), // convierte a cadena JSON
-        //         headers:{
-        //             'Content-Type': 'application/json'
-        //         }
-        //         })
-        //         const obj= await response.json();
-        //         $('#datos').html('');
-        //         obj.equipo1.forEach((element,index) => {
-        //             $('#datos').append(`<tr><td>${element}</td><td>${obj.equipo2[index]}</td></tr>`)
-        //         });
-        //     }
+                const response = await fetch(url, {
+                method: 'POST', // or 'PUT' , que envía en lugar de parámetros, una cadena JSON.
+                body: JSON.stringify(data), // convierte a cadena JSON
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+                })
+                const obj= await response.json();
+                $('#datos').html('');
+                obj.equipo1.forEach((element,index) => {
+                    $('#datos').append(`<tr><td>${element}</td><td>${obj.equipo2[index]}</td></tr>`)
+                });
+            }
 
-        // envia_post();
+        envia_post();
         //-------------------------------------------------------------------------------
 
 
