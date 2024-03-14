@@ -36,11 +36,11 @@ class Costes {
                 for (let key in obj) {
                     console.log(key);
                     console.log(obj[key]);
-                    $('#datos').append(`<p>${key} ${obj[key]}</p>`);
+                    $('#datosTabla').append(`<tr><td>${key}</td><td>${obj[key]}</td></tr>`);
                     suma += obj[key];
                 }
                 // Muestra la suma total de los costes
-                $('#datos').append(`La suma total de los costes es: ${suma}`);
+                $('#datosTabla').append(`La suma total de los costes es: ${suma}`);
             }
             catch (error) {
                 $("#datosTabla").html('El ID introducido no existe');
